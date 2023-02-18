@@ -3,7 +3,6 @@
 /* more headers goes there */
 #include <stdio.h>
 /**
- *
  * main - this is the entry point of the program
  *
  * Return: if success (0)

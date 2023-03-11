@@ -1,82 +1,71 @@
-# 0x08. C - Static libraries
+## 0x09-static_libraries Project ##
 
-This repository contains more projects introducing the use, purpose of static libraries. Below is a list of the projects following a description for each of them.
+![image](https://user-images.githubusercontent.com/105589308/194304775-87c925ad-f7dc-41b9-a28a-68e7f8396659.png)
 
-## Creating a static library libholberton.a
-```
--Wall -pedantic -Werror -Wextra -c \*.c
+General
+What is a static library, how does it work, how to create one, and how to use it
 
-ar -rc libholberton.a \*.o
+Basic usage of ar, ranlib, nm
 
-ar -t libholberton.a
+### NOTE All the files within this Folder are made executable ###
 
-0-isupper.o
-0-memset.o
-0-strcat.o
-1-isdigit.o
-1-memcpy.o
-1-strncat.o
-100-atoi.o
-2-strchr.o
-2-strlen.o
-2-strncpy.o
-3-islower.o
-3-puts.o
-3-strcmp.o
-3-strspn.o
-4-isalpha.o
-4-strpbrk.o
-5-strstr.o6-abs.o
-6-abs.o
-9-strcpy.o
-\_putchar.o
+This project finds solutions to the following:
 
-ranlib libholberton.a
+## Resource
 
-creat a main.c file
+- [What Is A “C” Library? What Is It Good For?](https://docencia.ac.upc.edu/FIB/USO/Bibliografia/unix-c-libraries.html).
+- [Creating A Static “C” Library Using “ar” and “ranlib”](https://docencia.ac.upc.edu/FIB/USO/Bibliografia/unix-c-libraries.html).
+- [Using A "C" Library In A Program](https://docencia.ac.upc.edu/FIB/USO/Bibliografia/unix-c-libraries.html).
+- [What is difference between Dynamic and Static library(Static and Dynamic linking)](https://www.youtube.com/watch?v=eW5he5uFBNM) (stop at 4:44)
 
-gcc main.c -L. -lholberton -o quote
-```
-## libholberton.a
+## Tasks
 
-A static library containing all the functions listed below
-
-```
-int _putchar(char c);
-int _islower(int c);
-int _isalpha(int c);
-int _abs(int n);
-int _isupper(int c);
-int _isdigit(int c);
-int _strlen(char *s);
-void _puts(char *s);
-char *_strcpy(char *dest, char *src);
-int _atoi(char *s);
-char *_strcat(char *dest, char *src);
-char *_strncat(char *dest, char *src, int n);
-char *_strncpy(char *dest, char *src, int n);
-int _strcmp(char *s1, char *s2);
-char *_memset(char *s, char b, unsigned int n);
-char *_memcpy(char *dest, char *src, unsigned int n);
-char *_strchr(char *s, char c);
-unsigned int _strspn(char *s, char *accept);
-char *_strpbrk(char *s, char *accept);
-char *_strstr(char *haystack, char *needle);
-```
+0. [A library is not a luxury but one of the necessities of life](./libholberton.a) : Creating a static library containing all the functions listed below.
+	- Functions;
+		```sh
+		int _putchar(char c);
+		int _islower(int c);
+		int _isalpha(int c);
+		int _abs(int n);
+		int _isupper(int c);
+		int _isdigit(int c);
+		int _strlen(char *s);
+		void _puts(char *s);
+		char *_strcpy(char *dest, char *src);
+		int _atoi(char *s);
+		char *_strcat(char *dest, char *src);
+		char *_strncat(char *dest, char *src, int n);
+		char *_strncpy(char *dest, char *src, int n);
+		int _strcmp(char *s1, char *s2);
+		char *_memset(char *s, char b, unsigned int n);
+		char *_memcpy(char *dest, char *src, unsigned int n);
+		char *_strchr(char *s, char c);
+		unsigned int _strspn(char *s, char *accept);
+		char *_strpbrk(char *s, char *accept);
+		char *_strstr(char *haystack, char *needle);
+		```
+	- File [holberton.h](./holberton.h) contains all of the above functions created from previous projects.
+	- Steps to create static library.
+		- First compile all `.c` files to get our object files `.o` files.
+			`gcc -c *c`
+		- Then we create our static library from our object files.
+			`ar rc libholberton.a *.o`
+		- Then we confirm if our static library was created successfully.
+			`ar -t libholberton.a`
+		- We confirm if our object files were linked successfully.
+			`nm libholberton.h`
+	- Compile the main code to test our static library this way: `gcc -std=gnu89 main.c -L. -lholberton -o quote`
+1. [Without libraries what have we? We have no past and no future](./create_static_lib.sh) : Create a script that creates a library called `liball.a` from all the `.c` files that are in the current directory.
 
 
+### Note: In creating a static library ###
 
-## holberton.h
+  - gcc -c *.c > This converts .c files to .o (object) files
+  - ar rcs libmy.a *.o
+  - ar rc libmy.a *.o > This creates the static library "Libmy.a"
+  - ar -t libmy.a > This lists all files in libmy.a
 
-The header file containing necessary prototypes. 
+- ranlib libmy.a > This converts to random library
 
-
-
-## create_static_lib.sh
-
-A script called `create_static_lib.sh` that creates a static library called `liball.a` from all the `.c`files that are in the current directory.
-
-``
-chmod u+x create_static_lib.sh
-./create_static_lib.sh
-``
+  - After creating a static library and you would want to compile for testing use:
+  - > gcc -std=gnu89 main.c -L -lmy -o(new_file_name)
